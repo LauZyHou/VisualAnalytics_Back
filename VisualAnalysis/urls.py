@@ -16,18 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.views.static import serve
 from django.urls import path, re_path, include
-from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework.routers import DefaultRouter
 from rest_framework.documentation import include_docs_urls
-from rest_framework.authtoken import views
 
 from VisualAnalysis.settings import MEDIA_ROOT
+from demoapp.views import DemoViewSet
 
 # DRF:REST风格的router
 router = DefaultRouter()
+router.register(r'demo', DemoViewSet, base_name='demo')
 
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
     path('docs/', include_docs_urls(title="可视分析文档")),
+    # 处理图片显示的url,使用Django自带serve,传入参数告诉它去哪个路径找,使用配置好的路径
+    re_path('media/(?P<path>.*)', serve, {"document_root": MEDIA_ROOT}),
 ]

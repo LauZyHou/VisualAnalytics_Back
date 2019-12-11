@@ -19,8 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # 设置搜索app的路径
 # ---------------------------------------------------------------------------
 sys.path.insert(0, BASE_DIR)
-APPS = 'apps'
-sys.path.insert(0, os.path.join(BASE_DIR, APPS))
+sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
