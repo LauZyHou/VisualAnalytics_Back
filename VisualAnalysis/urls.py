@@ -14,8 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.views.static import serve
+from django.urls import path, re_path, include
+from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework.routers import DefaultRouter
+from rest_framework.documentation import include_docs_urls
+from rest_framework.authtoken import views
+
+from VisualAnalysis.settings import MEDIA_ROOT
+
+# DRF:REST风格的router
+router = DefaultRouter()
 
 urlpatterns = [
+    path('', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('docs/', include_docs_urls(title="可视分析文档")),
 ]
