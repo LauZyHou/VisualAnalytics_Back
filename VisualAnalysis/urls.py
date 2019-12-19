@@ -21,10 +21,12 @@ from rest_framework.documentation import include_docs_urls
 
 from VisualAnalysis.settings import MEDIA_ROOT
 from demoapp.views import DemoViewSet
+from movies.views import MovieViewSet
 
 # DRF:REST风格的router
 router = DefaultRouter()
 router.register(r'demo', DemoViewSet, base_name='demo')
+router.register(r'movie', MovieViewSet, base_name='movie')
 
 urlpatterns = [
     path('', include(router.urls)),

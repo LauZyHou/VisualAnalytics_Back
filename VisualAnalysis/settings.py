@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_filters',
     'corsheaders',
-    'reversion'
+    'reversion',
+    'demoapp',
+    'movies'
 ]
 
 MIDDLEWARE = [
