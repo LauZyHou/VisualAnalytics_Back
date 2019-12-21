@@ -2,6 +2,7 @@ import pandas as pd
 from typing import Dict, Set, List
 
 """
+*本文件作废
 生成电影的元信息
 """
 

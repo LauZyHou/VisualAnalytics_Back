@@ -2,6 +2,7 @@ import pandas as pd
 from typing import List, Dict, Set
 
 """
+*本文件作废
 生成genres子标签
 """
 
