@@ -22,3 +22,16 @@ class Movie(models.Model):
 
     def __str__(self):
         return str(self.id) + self.title
+
+
+class MovieGenres(models.Model):
+    """电影的流派枚举"""
+    genre = models.CharField(max_length=20, verbose_name="流派", unique=True, null=False, blank=False)
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
+
+    class Meta:
+        verbose_name = "电影流派"
+        verbose_name_plural = "电影流派"
+
+    def __str__(self):
+        return str(self.genre)

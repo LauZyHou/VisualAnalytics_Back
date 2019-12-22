@@ -25,7 +25,6 @@ if __name__ == '__main__':
     # 读取文件,写入数据库
     with open("../Jupyter/movie.pkl", 'rb') as f:
         movies: Dict = pickle.load(f)
-        cnt = 0
         for k in movies:
             print(movies[k])
             title = movies[k]['title'] if 'title' in movies[k] else None
