@@ -22,7 +22,8 @@ from rest_framework.documentation import include_docs_urls
 from VisualAnalysis.settings import MEDIA_ROOT
 from demoapp.views import DemoViewSet
 from movies.views import MovieViewSet, MovieGenresViewSet
-from movies.views import MovieTypeViewSet, MeanScoreViewSet
+from movies.views import MovieTypeViewSet, MeanScoreViewSet, \
+    ScoreDistributionViewSet, MVAndPNumViewSet
 
 # DRF:REST风格的router
 router = DefaultRouter()
@@ -34,6 +35,10 @@ router = DefaultRouter()
 router.register(r'type_set', MovieTypeViewSet, base_name='type_set')
 # list从1925到2016的平均得分(世界/中国大陆)
 router.register(r'mean_score', MeanScoreViewSet, base_name='mean_score')
+# list在[0, 5, 6.5, 7.5, 8, 8.5, 9, 10]两两区间下的score分布
+router.register(r'score_distri', ScoreDistributionViewSet, base_name='score_distri')
+# list电影数目、评论数目随时间的变化(1920-2016)
+router.register(r'mvnum_pnum', MVAndPNumViewSet, base_name='mvnum_pnum')
 
 urlpatterns = [
     path('', include(router.urls)),

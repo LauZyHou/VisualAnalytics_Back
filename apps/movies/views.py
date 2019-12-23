@@ -18,11 +18,29 @@ from movies.serializers import MovieSerializer, MovieGenresSerializer
 with open('./Jupyter/type_set.pkl', 'rb') as f:
     type_set = pickle.load(f)
 
-# 获取19265~2016年的平均score
+# 获取1925-2016年的平均score
 with open('./DataSet/douban_more/mean_score_list.pkl', 'rb') as f:  # 世界
     mean_score_list = pickle.load(f)
 with open('./DataSet/douban_more/mean_score_list_cn.pkl', 'rb') as f:  # 中国大陆
     mean_score_list_cn = pickle.load(f)
+
+# 获取[0, 5, 6.5, 7.5, 8, 8.5, 9, 10]两两区间下的score分布
+with open('./DataSet/douban_more/score_distri.pkl', 'rb') as f:  # 世界
+    score_distri = pickle.load(f)
+with open('./DataSet/douban_more/score_distri_cn.pkl', 'rb') as f:  # 中国大陆
+    score_distri_cn = pickle.load(f)
+
+# 获取1920-2016年的电影数目变化
+with open('./DataSet/douban_more/mvnum_list.pkl', 'rb') as f:  # 世界
+    mvnum_list = pickle.load(f)
+with open('./DataSet/douban_more/mvnum_list_cn.pkl', 'rb') as f:  # 中国大陆
+    mvnum_list_cn = pickle.load(f)
+
+# 获取1920-2016年的评论数目变化
+with open('./DataSet/douban_more/pnum_list.pkl', 'rb') as f:  # 世界
+    pnum_list = pickle.load(f)
+with open('./DataSet/douban_more/pnum_list_cn.pkl', 'rb') as f:  # 中国大陆
+    pnum_list_cn = pickle.load(f)
 
 
 class MovieTypeViewSet(mixins.ListModelMixin,
@@ -36,12 +54,35 @@ class MovieTypeViewSet(mixins.ListModelMixin,
 
 class MeanScoreViewSet(mixins.ListModelMixin,
                        viewsets.GenericViewSet):
-    """获取平均得分(世界/中国大陆)，这保存在pickle中"""
+    """获取平均得分(世界&中国大陆)，这保存在pickle中"""
     queryset = set()
 
     def list(self, request, *args, **kwargs):
         return Response({"世界": mean_score_list,
                          "中国大陆": mean_score_list_cn}, status=status.HTTP_200_OK)
+
+
+class ScoreDistributionViewSet(mixins.ListModelMixin,
+                               viewsets.GenericViewSet):
+    """获取得分的分布情况(世界&中国大陆)，这保存在pickle中"""
+    queryset = set()
+
+    def list(self, request, *args, **kwargs):
+        return Response({"世界": score_distri,
+                         "中国大陆": score_distri_cn}, status=status.HTTP_200_OK)
+
+
+class MVAndPNumViewSet(mixins.ListModelMixin,
+                       viewsets.GenericViewSet):
+    """电影数目、评论数目随时间的变化(1920-2016)"""
+    queryset = set()
+
+    def list(self, request, *args, **kwargs):
+        return Response({"电影数(世界)": mvnum_list,
+                         "电影数(中国大陆)": mvnum_list_cn,
+                         "评论数(世界)": pnum_list,
+                         "评论数(中国大陆)": pnum_list_cn
+                         }, status=status.HTTP_200_OK)
 
 
 # 作废
