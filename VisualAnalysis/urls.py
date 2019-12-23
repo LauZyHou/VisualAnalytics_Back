@@ -21,12 +21,19 @@ from rest_framework.documentation import include_docs_urls
 
 from VisualAnalysis.settings import MEDIA_ROOT
 from demoapp.views import DemoViewSet
-from movies.views import MovieViewSet
+from movies.views import MovieViewSet, MovieGenresViewSet
+from movies.views import MovieTypeViewSet, MeanScoreViewSet
 
 # DRF:REST风格的router
 router = DefaultRouter()
-router.register(r'demo', DemoViewSet, base_name='demo')
-router.register(r'movie', MovieViewSet, base_name='movie')
+# router.register(r'demo', DemoViewSet, base_name='demo')
+# router.register(r'movie', MovieViewSet, base_name='movie')
+# router.register(r'movie_genres', MovieGenresViewSet, base_name='movie_genres')
+
+# list电影的类型
+router.register(r'type_set', MovieTypeViewSet, base_name='type_set')
+# list从1925到2016的平均得分(世界/中国大陆)
+router.register(r'mean_score', MeanScoreViewSet, base_name='mean_score')
 
 urlpatterns = [
     path('', include(router.urls)),

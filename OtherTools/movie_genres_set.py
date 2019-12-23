@@ -30,6 +30,9 @@ if __name__ == '__main__':
                 genres_str = movies[k]['genres']
                 genres_list = genres_str.split('|')
                 genres_set = genres_set | set(genres_list)
+        # 写入pickle
+        with open("../OtherTools/movie_genres_set.pkl", 'wb') as f:
+            pickle.dump(genres_set, f)
         # 写入数据库
         for g in genres_set:
             movie_genre = MovieGenres()

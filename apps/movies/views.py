@@ -12,7 +12,39 @@ from rest_framework import filters
 from movies.models import Movie, MovieGenres
 from movies.serializers import MovieSerializer, MovieGenresSerializer
 
+# 以下类外部分为实现静态代码功能
 
+# 获取类别集合
+with open('./Jupyter/type_set.pkl', 'rb') as f:
+    type_set = pickle.load(f)
+
+# 获取19265~2016年的平均score
+with open('./DataSet/douban_more/mean_score_list.pkl', 'rb') as f:  # 世界
+    mean_score_list = pickle.load(f)
+with open('./DataSet/douban_more/mean_score_list_cn.pkl', 'rb') as f:  # 中国大陆
+    mean_score_list_cn = pickle.load(f)
+
+
+class MovieTypeViewSet(mixins.ListModelMixin,
+                       viewsets.GenericViewSet):
+    """电影类别枚举，使用douban的boutique数据集，保存在type_set.pkl中"""
+    queryset = set()
+
+    def list(self, request, *args, **kwargs):
+        return Response(list(type_set), status=status.HTTP_200_OK)
+
+
+class MeanScoreViewSet(mixins.ListModelMixin,
+                       viewsets.GenericViewSet):
+    """获取平均得分(世界/中国大陆)，这保存在pickle中"""
+    queryset = set()
+
+    def list(self, request, *args, **kwargs):
+        return Response({"世界": mean_score_list,
+                         "中国大陆": mean_score_list_cn}, status=status.HTTP_200_OK)
+
+
+# 作废
 class MoviePagination(PageNumberPagination):
     """电影分页"""
     page_size = 10  # 每页显示数据条数
@@ -21,7 +53,7 @@ class MoviePagination(PageNumberPagination):
     max_page_size = 20  # 最大的每页显示数据条数
 
 
-# 这个接口可能用不上
+# 作废
 class MovieViewSet(mixins.RetrieveModelMixin,
                    mixins.ListModelMixin,
                    viewsets.GenericViewSet):
@@ -42,9 +74,9 @@ class MovieViewSet(mixins.RetrieveModelMixin,
     ordering = ('id',)
 
 
+# 作废
 class MovieGenresViewSet(mixins.ListModelMixin,
                          viewsets.GenericViewSet):
     """电影流派枚举序列化"""
     serializer_class = MovieGenresSerializer
     queryset = MovieGenres.objects.all()
-
