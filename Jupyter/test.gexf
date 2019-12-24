@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gephi.org/gexf/1.1draft" xmlns:viz="http://www.gexf.net/1.1draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="xsi" version="1.1" ns0:schemaLocation="http://www.gephi.org/gexf/1.1draft http://gephi.org/gexf/1.1draft.xsd">
+  <meta lastmodified="2019-12-24T20:50:52.728905">
+    <creator>LauZyHou</creator>
+    <description>Actor Relation</description>
+  </meta>
+  <graph defaultedgetype="undirected" mode="static" label="Actor Relation">
+    <attributes class="node" mode="dynamic"/>
+    <attributes class="node" mode="static">
+      <attribute id="0" title="Modularity Class" type="integer">
+        <default>modularity_class</default>
+      </attribute>
+    </attributes>
+    <attributes class="edge" mode="dynamic"/>
+    <attributes class="edge" mode="static"/>
+    <nodes>
+      <node id="0" label="刘德华">
+        <attvalues>
+          <attvalue for="0" value="50"/>
+        </attvalues>
+      </node>
+      <node id="1" label="张学友">
+        <attvalues>
+          <attvalue for="0" value="40"/>
+        </attvalues>
+      </node>
+      <node id="2" label="古巨基">
+        <attvalues>
+          <attvalue for="0" value="70"/>
+        </attvalues>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="0" source="0" target="1" weight="1">
+        <attvalues/>
+      </edge>
+      <edge id="1" source="0" target="2" weight="1">
+        <attvalues/>
+      </edge>
+      <edge id="2" source="1" target="0" weight="1">
+        <attvalues/>
+      </edge>
+    </edges>
+  </graph>
+</gexf>
