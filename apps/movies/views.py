@@ -42,6 +42,12 @@ with open('./DataSet/douban_more/pnum_list.pkl', 'rb') as f:  # 世界
 with open('./DataSet/douban_more/pnum_list_cn.pkl', 'rb') as f:  # 中国大陆
     pnum_list_cn = pickle.load(f)
 
+# 获取2010-2016年五个区间评分的电影数目变化
+with open('./DataSet/douban_more/score_flow.pkl', 'rb') as f:  # 世界
+    score_flow = pickle.load(f)
+with open('./DataSet/douban_more/score_flow_cn.pkl', 'rb') as f:  # 中国大陆
+    score_flow_cn = pickle.load(f)
+
 
 class MovieTypeViewSet(mixins.ListModelMixin,
                        viewsets.GenericViewSet):
@@ -83,6 +89,17 @@ class MVAndPNumViewSet(mixins.ListModelMixin,
                          "评论数(世界)": pnum_list,
                          "评论数(中国大陆)": pnum_list_cn
                          }, status=status.HTTP_200_OK)
+
+
+class ScoreFlowViewSet(mixins.ListModelMixin,
+                       viewsets.GenericViewSet):
+    """获取2010-2016年五个区间评分的电影数目变化"""
+    queryset = set()
+
+    def list(self, request, *args, **kwargs):
+        return Response({"世界": score_flow,
+                         "中国大陆": score_flow_cn},
+                        status=status.HTTP_200_OK)
 
 
 # 作废
