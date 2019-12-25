@@ -1,6 +1,14 @@
 .idea
 __pycache__
-DataSet
 .ipynb_checkpoints
-*.pkl
+# *.pkl
 migrations
+
+actor_relation*
+OtherTools/*.pkl
+movie.pkl
+type_account_dict.pkl
+
+*.csv
+*.txt
+*.xlsx

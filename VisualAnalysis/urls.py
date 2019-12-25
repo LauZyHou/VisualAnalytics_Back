@@ -22,9 +22,10 @@ from rest_framework.documentation import include_docs_urls
 from VisualAnalysis.settings import MEDIA_ROOT
 from demoapp.views import DemoViewSet
 from movies.views import MovieViewSet, MovieGenresViewSet
-from movies.views import MovieTypeViewSet, MeanScoreViewSet, \
+from movies.views import TypeViewSet, MeanScoreViewSet, \
     ScoreDistributionViewSet, MVAndPNumViewSet, ScoreFlowViewSet, \
-    TypeDirectorViewSet
+    TypeDirectorViewSet, TypeScoreViewSet, TypeAccountViewSet, \
+    ZoneViewSet, ZoneScoreViewSet, ZoneAccountViewSet, ZoneDirectorViewSet
 
 # DRF:REST风格的router
 router = DefaultRouter()
@@ -33,7 +34,9 @@ router = DefaultRouter()
 # router.register(r'movie_genres', MovieGenresViewSet, base_name='movie_genres')
 
 # list电影的类型
-router.register(r'type_set', MovieTypeViewSet, base_name='type_set')
+router.register(r'type_list', TypeViewSet, base_name='type_list')
+# list城市的类型
+router.register(r'zone_list', ZoneViewSet, base_name='zone_list')
 # list从1925到2016的平均得分(世界/中国大陆)
 router.register(r'mean_score', MeanScoreViewSet, base_name='mean_score')
 # list在[0, 5, 6.5, 7.5, 8, 8.5, 9, 10]两两区间下的score分布
@@ -44,6 +47,16 @@ router.register(r'mvnum_pnum', MVAndPNumViewSet, base_name='mvnum_pnum')
 router.register(r'score_flow', ScoreFlowViewSet, base_name='score_flow')
 # retrieve按类型名获取最常见的四个导演和score分布
 router.register(r'type_director', TypeDirectorViewSet, base_name='type_director')
+# retrieve按地区名获取最常见的四个导演和score分布
+router.register(r'zone_director', ZoneDirectorViewSet, base_name='zone_director')
+# retrieve按类型名获取score分布
+router.register(r'type_score', TypeScoreViewSet, base_name='type_score')
+# retrieve按类型名获取account分布
+router.register(r'type_account', TypeAccountViewSet, base_name='type_account')
+# retrieve按地区名获取score分布
+router.register(r'zone_score', ZoneScoreViewSet, base_name='zone_score')
+# retrieve按地区名获取account分布
+router.register(r'zone_account', ZoneAccountViewSet, base_name='zone_account')
 
 urlpatterns = [
     path('', include(router.urls)),

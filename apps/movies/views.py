@@ -14,9 +14,13 @@ from movies.serializers import MovieSerializer, MovieGenresSerializer
 
 # 以下类外部分为实现静态代码功能
 
-# 获取类别集合
-with open('./Jupyter/type_set.pkl', 'rb') as f:
-    type_set = pickle.load(f)
+# 获取类别枚举列表
+with open('./Jupyter/type_list.pkl', 'rb') as f:
+    type_list = pickle.load(f)
+
+# 获取地区枚举列表
+with open('./Jupyter/zone_list.pkl', 'rb') as f:
+    zone_list = pickle.load(f)
 
 # 获取1925-2016年的平均score
 with open('./DataSet/douban_more/mean_score_list.pkl', 'rb') as f:  # 世界
@@ -51,15 +55,43 @@ with open('./DataSet/douban_more/score_flow_cn.pkl', 'rb') as f:  # 中国大陆
 # 获取各个类型的最多四个导演信息
 with open('./DataSet/douban_boutique/type_director_dict.pkl', 'rb') as f:
     type_director_dict = pickle.load(f)
+# 获取各个地区的最多四个导演信息
+with open('./DataSet/douban_boutique/zone_director_dict.pkl', 'rb') as f:
+    zone_director_dict = pickle.load(f)
+
+# 获取各个类型的score信息
+with open('./DataSet/douban_boutique/type_score_dict.pkl', 'rb') as f:
+    type_score_dict = pickle.load(f)
+
+# 获取各个类型的account信息
+with open('./DataSet/douban_boutique/type_account_dict2.pkl', 'rb') as f:
+    type_account_dict = pickle.load(f)
+
+# 获取各个地区的score信息
+with open('./DataSet/douban_boutique/zone_score_dict.pkl', 'rb') as f:
+    zone_score_dict = pickle.load(f)
+
+# 获取各个类型的account信息
+with open('./DataSet/douban_boutique/zone_account_dict.pkl', 'rb') as f:
+    zone_account_dict = pickle.load(f)
 
 
-class MovieTypeViewSet(mixins.ListModelMixin,
-                       viewsets.GenericViewSet):
+class TypeViewSet(mixins.ListModelMixin,
+                  viewsets.GenericViewSet):
     """电影类别枚举，使用douban的boutique数据集，保存在type_set.pkl中"""
     queryset = set()
 
     def list(self, request, *args, **kwargs):
-        return Response(list(type_set), status=status.HTTP_200_OK)
+        return Response(type_list, status=status.HTTP_200_OK)
+
+
+class ZoneViewSet(mixins.ListModelMixin,
+                  viewsets.GenericViewSet):
+    """地区类别枚举"""
+    queryset = set()
+
+    def list(self, request, *args, **kwargs):
+        return Response(zone_list, status=status.HTTP_200_OK)
 
 
 class MeanScoreViewSet(mixins.ListModelMixin,
@@ -112,10 +144,70 @@ class TypeDirectorViewSet(mixins.RetrieveModelMixin,
     queryset = set()
 
     def retrieve(self, request, *args, **kwargs):
-        dirstr = kwargs['pk']
-        if dirstr not in type_director_dict:
+        typestr = kwargs['pk']
+        if typestr not in type_director_dict:
             return Response(None, status=status.HTTP_404_NOT_FOUND)
-        return Response(type_director_dict[dirstr], status=status.HTTP_200_OK)
+        return Response(type_director_dict[typestr], status=status.HTTP_200_OK)
+
+
+class ZoneDirectorViewSet(mixins.RetrieveModelMixin,
+                          viewsets.GenericViewSet):
+    """获取某个地区的最多四个导演信息"""
+    queryset = set()
+
+    def retrieve(self, request, *args, **kwargs):
+        zonestr = kwargs['pk']
+        if zonestr not in zone_director_dict:
+            return Response(None, status=status.HTTP_404_NOT_FOUND)
+        return Response(zone_director_dict[zonestr], status=status.HTTP_200_OK)
+
+
+class TypeAccountViewSet(mixins.RetrieveModelMixin,
+                         viewsets.GenericViewSet):
+    """获取各个类型的account信息"""
+    queryset = set()
+
+    def retrieve(self, request, *args, **kwargs):
+        typestr = kwargs['pk']
+        if typestr not in type_account_dict:
+            return Response(None, status=status.HTTP_404_NOT_FOUND)
+        return Response(type_account_dict[typestr], status=status.HTTP_200_OK)
+
+
+class TypeScoreViewSet(mixins.RetrieveModelMixin,
+                       viewsets.GenericViewSet):
+    """获取各个类型的score信息"""
+    queryset = set()
+
+    def retrieve(self, request, *args, **kwargs):
+        typestr = kwargs['pk']
+        if typestr not in type_score_dict:
+            return Response(None, status=status.HTTP_404_NOT_FOUND)
+        return Response(type_score_dict[typestr], status=status.HTTP_200_OK)
+
+
+class ZoneAccountViewSet(mixins.RetrieveModelMixin,
+                         viewsets.GenericViewSet):
+    """获取各个类型的account信息"""
+    queryset = set()
+
+    def retrieve(self, request, *args, **kwargs):
+        zonestr = kwargs['pk']
+        if zonestr not in zone_account_dict:
+            return Response(None, status=status.HTTP_404_NOT_FOUND)
+        return Response(zone_account_dict[zonestr], status=status.HTTP_200_OK)
+
+
+class ZoneScoreViewSet(mixins.RetrieveModelMixin,
+                       viewsets.GenericViewSet):
+    """获取各个类型的score信息"""
+    queryset = set()
+
+    def retrieve(self, request, *args, **kwargs):
+        zonestr = kwargs['pk']
+        if zonestr not in zone_score_dict:
+            return Response(None, status=status.HTTP_404_NOT_FOUND)
+        return Response(zone_score_dict[zonestr], status=status.HTTP_200_OK)
 
 
 # 作废
