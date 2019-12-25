@@ -23,7 +23,8 @@ from VisualAnalysis.settings import MEDIA_ROOT
 from demoapp.views import DemoViewSet
 from movies.views import MovieViewSet, MovieGenresViewSet
 from movies.views import MovieTypeViewSet, MeanScoreViewSet, \
-    ScoreDistributionViewSet, MVAndPNumViewSet, ScoreFlowViewSet
+    ScoreDistributionViewSet, MVAndPNumViewSet, ScoreFlowViewSet, \
+    TypeDirectorViewSet
 
 # DRF:REST风格的router
 router = DefaultRouter()
@@ -41,6 +42,8 @@ router.register(r'score_distri', ScoreDistributionViewSet, base_name='score_dist
 router.register(r'mvnum_pnum', MVAndPNumViewSet, base_name='mvnum_pnum')
 # list从2010-2016年五个区间评分的电影数目变化
 router.register(r'score_flow', ScoreFlowViewSet, base_name='score_flow')
+# retrieve按类型名获取最常见的四个导演和score分布
+router.register(r'type_director', TypeDirectorViewSet, base_name='type_director')
 
 urlpatterns = [
     path('', include(router.urls)),

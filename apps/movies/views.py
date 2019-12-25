@@ -48,6 +48,10 @@ with open('./DataSet/douban_more/score_flow.pkl', 'rb') as f:  # 世界
 with open('./DataSet/douban_more/score_flow_cn.pkl', 'rb') as f:  # 中国大陆
     score_flow_cn = pickle.load(f)
 
+# 获取各个类型的最多四个导演信息
+with open('./DataSet/douban_boutique/type_director_dict.pkl', 'rb') as f:
+    type_director_dict = pickle.load(f)
+
 
 class MovieTypeViewSet(mixins.ListModelMixin,
                        viewsets.GenericViewSet):
@@ -100,6 +104,18 @@ class ScoreFlowViewSet(mixins.ListModelMixin,
         return Response({"世界": score_flow,
                          "中国大陆": score_flow_cn},
                         status=status.HTTP_200_OK)
+
+
+class TypeDirectorViewSet(mixins.RetrieveModelMixin,
+                          viewsets.GenericViewSet):
+    """获取某个类型的最多四个导演信息"""
+    queryset = set()
+
+    def retrieve(self, request, *args, **kwargs):
+        dirstr = kwargs['pk']
+        if dirstr not in type_director_dict:
+            return Response(None, status=status.HTTP_404_NOT_FOUND)
+        return Response(type_director_dict[dirstr], status=status.HTTP_200_OK)
 
 
 # 作废
