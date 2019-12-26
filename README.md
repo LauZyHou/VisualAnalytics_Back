@@ -1,15 +1,14 @@
 # VisualAnalytics_Back
-可视分析(服务端)，数据可视化课程项目。
+豆瓣电影可视分析(服务端)，Django REST framework，数据可视化课程项目。
 
 ![Anaconda](https://img.shields.io/badge/Anaconda-4.6.12-brightgreen.svg)
-![MySQL](https://img.shields.io/badge/MySQL-5.7.21-blue.svg)
 
 ## 前端项目地址
 [VisualAnalytics_Front](https://github.com/LauZyHou/VisualAnalytics_Front)
 
 ## 配置
 
-在用户家目录下的`.condarc`文件中确保保存了清TUNA源：
+在用户家目录下的`.condarc`文件中确保保存了清华TUNA源：
 ```
 channels:
   - defaults
@@ -33,6 +32,10 @@ conda env create -f env.yaml
 ```
 
 在PyCharm中将`apps`目录mark为蓝色(Sources Root)。
+
+---
+
+如需使用`Jupyter/`下对`.gexf`文件的生成部分(用于喂入ECharts的关系图数据)，还需要安装`gexf`包，并手动将其源码改成适配Python3的。
 
 ## 使用虚拟环境
 
